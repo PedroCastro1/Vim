@@ -20,16 +20,15 @@ set titlestring=%F
 
 " Identation 
 set expandtab
-set shiftwidth=4
-set tabstop=4
-set softtabstop=4
-set textwidth=80
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set textwidth=100
 set smarttab
 set showmatch
 set showmode
 set autoindent
 set smartindent
-set wrap
 
 " Maps
 noremap <F5> :w <CR>
@@ -39,9 +38,72 @@ map <Up> <NOP>
 map <Left> <NOP>
 map <Right> <NOP>
 inore jj <Esc>
+inoremap {<CR>  <Space>{<CR>}<C-o>O
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap " ""<left>
 
 " Breaking Lines
-nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w 
+nnoremap S i<CR>^mwgk<CR>`w 
+
+"Au
+au FocusLost * :wa
+au VimResized * exe "normal! \<c-w>="
+
+augroup line_return
+    au!
+    au BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \     execute 'normal! g`"zvzz' |
+        \ endif
+augroup END
+﻿syntax on 
+
+"Basic Setup 
+set nocompatible
+set cursorline
+set ruler
+set number
+set showcmd
+set wildmenu
+set wildmode=longest:list,full
+set nobackup
+set hidden
+set visualbell
+set novb
+
+set laststatus=2
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (row\ %l\/%L,\ col\ %c)
+set title
+set titlestring=%F
+
+" Identation 
+set expandtab
+set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set textwidth=100
+set smarttab
+set showmatch
+set showmode
+set autoindent
+set smartindent
+
+" Maps
+noremap <F5> :w <CR>
+nnoremap ;; A;<CR>
+map <Down> <NOP>
+map <Up> <NOP>
+map <Left> <NOP>
+map <Right> <NOP>
+inore jj <Esc>
+inoremap {<CR>  <Space>{<CR>}<C-o>O
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap " ""<left>
+
+" Breaking Lines
+nnoremap S i<CR><Esc>^mwgk<CR><CR>`w 
 
 "Au
 au FocusLost * :wa
