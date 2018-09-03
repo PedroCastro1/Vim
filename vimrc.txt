@@ -1,0 +1,56 @@
+﻿syntax on 
+
+"Basic Setup 
+set nocompatible
+set cursorline
+set ruler
+set number
+set showcmd
+set wildmenu
+set wildmode=longest:list,full
+set nobackup
+set hidden
+set visualbell
+set novb
+
+set laststatus=2
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (row\ %l\/%L,\ col\ %c)
+set title
+set titlestring=%F
+
+" Identation 
+set expandtab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set textwidth=80
+set smarttab
+set showmatch
+set showmode
+set autoindent
+set smartindent
+set wrap
+
+" Maps
+noremap <F5> :w <CR>
+nnoremap ;; A;<CR>
+map <Down> <NOP>
+map <Up> <NOP>
+map <Left> <NOP>
+map <Right> <NOP>
+inore jj <Esc>
+
+" Breaking Lines
+nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w 
+
+"Au
+au FocusLost * :wa
+au VimResized * exe "normal! \<c-w>="
+
+augroup line_return
+    au!
+    au BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \     execute 'normal! g`"zvzz' |
+        \ endif
+augroup END
